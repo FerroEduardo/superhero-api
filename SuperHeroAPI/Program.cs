@@ -13,6 +13,7 @@ using SuperHeroAPI.Exceptions;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+config.AddJsonFile("testing.json", optional: true);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
