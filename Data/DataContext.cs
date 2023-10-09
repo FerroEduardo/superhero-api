@@ -1,20 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SuperHeroAPI.Models;
-using System.Reflection.Metadata;
 
 namespace SuperHeroAPI.Data
 {
     public class DataContext : DbContext
     {
-        public DataContext(DbContextOptions<DataContext> options) : base (options)
+        private readonly IConfiguration config;
+
+        public DataContext(DbContextOptions<DataContext> options, IConfiguration config) : base (options)
         {
-            
+            this.config = config;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=localhost\\SQLEXPRESS;Database=superhero;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(config["Database:URL"]);
         }
 
         public DbSet<SuperHero> SuperHeroes { get; set; }
