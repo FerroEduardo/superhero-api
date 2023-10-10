@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.OpenApi.Models;
-using System.ComponentModel;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SuperHeroAPI.Swagger
 {

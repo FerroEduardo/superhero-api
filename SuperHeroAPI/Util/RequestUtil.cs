@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SuperHeroAPI.Models;
 using System.Security.Claims;
 
 namespace SuperHeroAPI.Util

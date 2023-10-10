@@ -1,6 +1,6 @@
 ﻿namespace SuperHeroAPI.Models.DTO
 {
-    public record SuperHeroDTO (
+    public record SuperHeroDTO(
         string Name,
         string FirstName,
         string LastName,

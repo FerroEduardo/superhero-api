@@ -1,17 +1,17 @@
-using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using SuperHeroAPI.Data;
-using SuperHeroAPI.Services.SuperHeroService;
-using System.Text;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using SuperHeroAPI.Swagger;
+using Microsoft.IdentityModel.Tokens;
+using SuperHeroAPI.Data;
+using SuperHeroAPI.Exceptions;
+using SuperHeroAPI.Models.Response;
 using SuperHeroAPI.Services;
 using SuperHeroAPI.Services.AuthenticationService;
-using Microsoft.AspNetCore.Diagnostics;
-using SuperHeroAPI.Exceptions;
-using Microsoft.EntityFrameworkCore;
-using SuperHeroAPI.Models.Response;
+using SuperHeroAPI.Services.SuperHeroService;
+using SuperHeroAPI.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -43,7 +43,8 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<TokenService, TokenService>();
 
 // Database
-builder.Services.AddDbContext<DataContext>(options => {
+builder.Services.AddDbContext<DataContext>(options =>
+{
     options.UseSqlServer(config["Database:URL"]);
 });
 
@@ -65,7 +66,7 @@ app.UseExceptionHandler(configure =>
         if (exception is UserNotFoundException || exception is PasswordMismatchException)
         {
             context.Response.StatusCode = 400;
-            
+
             await context.Response.WriteAsJsonAsync(new ErrorResponse("Invalid credentials."));
         }
         if (exception is UsernameAlreadyTakenException)

@@ -15,7 +15,8 @@ namespace SuperHeroAPI.Controllers
     {
         private readonly ISuperHeroService heroService;
 
-        public SuperHeroController(ISuperHeroService heroService) {
+        public SuperHeroController(ISuperHeroService heroService)
+        {
             this.heroService = heroService;
         }
 

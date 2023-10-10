@@ -1,12 +1,7 @@
 ﻿using SuperHeroAPI.Data;
 using SuperHeroAPI.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace IntegrationTests
+namespace IntegrationTests.Utils
 {
     internal class DatabaseUtil
     {

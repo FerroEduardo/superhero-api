@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Reflection.Metadata;
-
-namespace SuperHeroAPI.Models
+﻿namespace SuperHeroAPI.Models
 {
     public class SuperHero
     {

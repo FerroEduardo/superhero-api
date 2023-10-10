@@ -3,10 +3,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SuperHeroAPI.Models.Request;
 using SuperHeroAPI.Models.Response;
 using SuperHeroAPI.Services;
-using System.Dynamic;
 using System.Net.Http.Json;
 
-namespace IntegrationTests
+namespace IntegrationTests.Tests
 {
     public class AuthenticationTests
     {
