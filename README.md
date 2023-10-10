@@ -1,6 +1,14 @@
+<div align="center">
+
 # SuperHeroAPI
 
-> API inspired by [this video](https://youtu.be/8pH5Lv4d5-g)
+[![test](https://github.com/FerroEduardo/superhero-api/actions/workflows/test.yml/badge.svg)](https://github.com/FerroEduardo/superhero-api/actions/workflows/test.yml)
+[![build](https://github.com/FerroEduardo/superhero-api/actions/workflows/build.yml/badge.svg)](https://github.com/FerroEduardo/superhero-api/actions/workflows/build.yml)
+
+</div>
+
+
+> API inspired by these tutorials: [1](https://youtu.be/8pH5Lv4d5-g), [2](https://youtu.be/RXSPCIrrjHc)
 
 > Swagger: http://localhost:5015/swagger
 
