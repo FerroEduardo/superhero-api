@@ -11,6 +11,7 @@ namespace SuperHeroAPI.Services
     {
         private readonly string issuer;
         private readonly string audience;
+        private readonly SymmetricSecurityKey key;
         private readonly JwtSecurityTokenHandler handler;
         private readonly SigningCredentials creds;
 
@@ -21,7 +22,7 @@ namespace SuperHeroAPI.Services
             this.handler = new JwtSecurityTokenHandler();
 
             var secret = config["JwtSettings:Secret"]!;
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
+            this.key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var algorithm = SecurityAlgorithms.HmacSha512;
             this.creds = new SigningCredentials(key, algorithm);
         }
@@ -46,6 +47,23 @@ namespace SuperHeroAPI.Services
             );
 
             return handler.WriteToken(token);
+        }
+
+        public bool IsValidToken(string token)
+        {
+            var validationParameters = new TokenValidationParameters
+            {
+                ValidIssuer = issuer,
+                ValidAudience = audience,
+                IssuerSigningKey = key,
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true
+            };
+            var claim = handler.ValidateToken(token, validationParameters, out _);
+
+            return claim != null;
         }
     }
 }

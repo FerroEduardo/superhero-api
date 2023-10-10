@@ -19,7 +19,7 @@ namespace SuperHeroAPI.Controllers
         }
 
         [HttpPost("signin")]
-        public async Task<ActionResult<string>> signin([FromBody] SigninRequest request)
+        public async Task<ActionResult<string>> signin([FromBody] AuthenticationRequest request)
         {
             var user = await authenticationService.signin(request.Username, request.Password);
             var token = tokenService.GenerateToken(user.Id);
@@ -28,7 +28,7 @@ namespace SuperHeroAPI.Controllers
         }
 
         [HttpPost("signup")]
-        public async Task<ActionResult<string>> signup([FromBody] SigninRequest request)
+        public async Task<ActionResult<string>> signup([FromBody] AuthenticationRequest request)
         {
             var user = await authenticationService.signup(request.Username, request.Password);
             var token = tokenService.GenerateToken(user.Id);

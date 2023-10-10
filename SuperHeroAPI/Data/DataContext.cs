@@ -5,17 +5,8 @@ namespace SuperHeroAPI.Data
 {
     public class DataContext : DbContext
     {
-        private readonly IConfiguration config;
-
-        public DataContext(DbContextOptions<DataContext> options, IConfiguration config) : base (options)
+        public DataContext(DbContextOptions<DataContext> options) : base (options)
         {
-            this.config = config;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer(config["Database:URL"]);
         }
 
         public DbSet<SuperHero> SuperHeroes { get; set; }

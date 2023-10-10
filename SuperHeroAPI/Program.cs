@@ -10,10 +10,11 @@ using SuperHeroAPI.Services;
 using SuperHeroAPI.Services.AuthenticationService;
 using Microsoft.AspNetCore.Diagnostics;
 using SuperHeroAPI.Exceptions;
+using Microsoft.EntityFrameworkCore;
+using SuperHeroAPI.Models.Response;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
-config.AddJsonFile("testing.json", optional: true);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -42,7 +43,9 @@ builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddSingleton<TokenService, TokenService>();
 
 // Database
-builder.Services.AddDbContext<DataContext>();
+builder.Services.AddDbContext<DataContext>(options => {
+    options.UseSqlServer(config["Database:URL"]);
+});
 
 var app = builder.Build();
 
@@ -62,18 +65,13 @@ app.UseExceptionHandler(configure =>
         if (exception is UserNotFoundException || exception is PasswordMismatchException)
         {
             context.Response.StatusCode = 400;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                message = "Invalid credentials."
-            });
+            
+            await context.Response.WriteAsJsonAsync(new ErrorResponse("Invalid credentials."));
         }
         if (exception is UsernameAlreadyTakenException)
         {
             context.Response.StatusCode = 400;
-            await context.Response.WriteAsJsonAsync(new
-            {
-                message = "Username already taken."
-            });
+            await context.Response.WriteAsJsonAsync(new ErrorResponse("Username already taken."));
         }
     });
 });
