@@ -1,8 +1,10 @@
+using Azure.Core;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using SuperHeroAPI.Models.Request;
 using SuperHeroAPI.Models.Response;
 using SuperHeroAPI.Services;
+using System.Dynamic;
 using System.Net.Http.Json;
 
 namespace IntegrationTests.Tests
@@ -66,24 +68,21 @@ namespace IntegrationTests.Tests
         {
             // Arrange
             var application = new SuperHeroWebApplicationFactory();
-            using (var scope = application.Services.CreateScope())
-            {
-                AuthenticationRequest request = new AuthenticationRequest();
-                request.Username = "eduardo";
-                request.Password = "password";
+            AuthenticationRequest request = new AuthenticationRequest();
+            request.Username = "eduardo";
+            request.Password = "password";
 
-                var client = application.CreateClient();
+            var client = application.CreateClient();
 
-                // Act
-                var response = await client.PostAsJsonAsync("/auth/signin", request);
+            // Act
+            var response = await client.PostAsJsonAsync("/auth/signin", request);
 
-                // Assert
-                response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+            // Assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
 
-                var responseBody = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-                responseBody.Should().NotBeNull();
-                responseBody!.Message.Should().Be("Invalid credentials.");
-            }
+            var responseBody = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+            responseBody.Should().NotBeNull();
+            responseBody!.Message.Should().Be("Invalid credentials.");
         }
 
 
@@ -92,24 +91,21 @@ namespace IntegrationTests.Tests
         {
             // Arrange
             var application = new SuperHeroWebApplicationFactory();
-            using (var scope = application.Services.CreateScope())
-            {
-                AuthenticationRequest request = new AuthenticationRequest();
-                request.Username = "eduardo";
-                request.Password = "password";
+            AuthenticationRequest request = new AuthenticationRequest();
+            request.Username = "eduardo";
+            request.Password = "password";
 
-                var client = application.CreateClient();
+            var client = application.CreateClient();
 
-                // Act
-                var response = await client.PostAsJsonAsync("/auth/signup", request);
+            // Act
+            var response = await client.PostAsJsonAsync("/auth/signup", request);
 
-                // Assert
-                response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
+            // Assert
+            response.StatusCode.Should().Be(System.Net.HttpStatusCode.BadRequest);
 
-                var responseBody = await response.Content.ReadFromJsonAsync<ErrorResponse>();
-                responseBody.Should().NotBeNull();
-                responseBody!.Message.Should().Be("Username already taken.");
-            }
+            var responseBody = await response.Content.ReadFromJsonAsync<ErrorResponse>();
+            responseBody.Should().NotBeNull();
+            responseBody!.Message.Should().Be("Username already taken.");
         }
     }
 }

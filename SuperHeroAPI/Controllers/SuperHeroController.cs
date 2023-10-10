@@ -57,7 +57,9 @@ namespace SuperHeroAPI.Controllers
                 UserId = userId,
             };
             var superHero = await heroService.Create(hero);
-            return Ok(superHero);
+            var heroDto = SuperHeroDTO.fromEntity(superHero);
+
+            return CreatedAtAction(nameof(GetSingleHero), new { id = superHero.Id }, heroDto);
         }
 
         [HttpPut("{id}")]
@@ -73,8 +75,9 @@ namespace SuperHeroAPI.Controllers
                 UserId = userId,
             };
             hero = await heroService.Update(id, hero);
+            var heroDto = SuperHeroDTO.fromEntity(hero);
 
-            return Ok(hero);
+            return Ok(heroDto);
         }
 
         [HttpDelete("{id}")]

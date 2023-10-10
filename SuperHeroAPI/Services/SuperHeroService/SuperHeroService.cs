@@ -21,17 +21,6 @@ namespace SuperHeroAPI.Services.SuperHeroService
             return hero;
         }
 
-        public async Task Delete(int id)
-        {
-            var superHero = await this.context.SuperHeroes.FindAsync(id);
-            if (superHero == null)
-            {
-                throw new Exception("Hero not found");
-            }
-            this.context.SuperHeroes.Remove(superHero);
-            await this.context.SaveChangesAsync();
-        }
-
         public async Task Delete(int id, int userId)
         {
             var superHero = await this.context.SuperHeroes.Where(hero => hero.Id == id && hero.UserId == userId).FirstOrDefaultAsync();
@@ -43,24 +32,14 @@ namespace SuperHeroAPI.Services.SuperHeroService
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<List<SuperHero>> Index()
-        {
-            return await this.context.SuperHeroes.ToListAsync();
-        }
-
         public async Task<List<SuperHero>> Index(int userId)
         {
             return await this.context.SuperHeroes.Where(hero => hero.UserId == userId).ToListAsync();
         }
 
-        public async Task<SuperHero?> Show(int id)
-        {
-            return await this.context.SuperHeroes.FindAsync(id);
-        }
-
         public async Task<SuperHero?> Show(int id, int userId)
         {
-            return await this.context.SuperHeroes.Where(hero => hero.UserId == userId && hero.Id == id).FirstAsync();
+            return await this.context.SuperHeroes.Where(hero => hero.UserId == userId && hero.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<SuperHero> Update(int id, SuperHero hero)

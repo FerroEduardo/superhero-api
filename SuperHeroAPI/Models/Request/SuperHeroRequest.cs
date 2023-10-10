@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SuperHeroAPI.Models.Request
 {
-    [DisplayName("aaaaaaaaa")]
     public class SuperHeroRequest
     {
         [Required]
@@ -12,6 +11,7 @@ namespace SuperHeroAPI.Models.Request
         public string FirstName { get; set; } = string.Empty;
         [Required]
         public string LastName { get; set; } = string.Empty;
+        [Required]
         public string Place { get; set; } = string.Empty;
     }
 }
