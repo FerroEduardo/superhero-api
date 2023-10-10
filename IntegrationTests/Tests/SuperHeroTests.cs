@@ -1,19 +1,9 @@
-﻿using Azure;
-using Azure.Core;
-using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using SuperHeroAPI.Models.DTO;
 using SuperHeroAPI.Models.Request;
-using SuperHeroAPI.Models.Response;
 using SuperHeroAPI.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace IntegrationTests.Tests
 {

@@ -7,11 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using SuperHeroAPI.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IntegrationTests
 {
@@ -22,7 +17,8 @@ namespace IntegrationTests
             builder.ConfigureTestServices(services =>
             {
                 services.RemoveAll(typeof(DbContextOptions<DataContext>));
-                services.AddDbContext<DataContext>(options => {
+                services.AddDbContext<DataContext>(options =>
+                {
                     options.UseSqlServer(getDatabaseUrl());
                 });
 
